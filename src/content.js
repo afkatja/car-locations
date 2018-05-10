@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { colors } from "./variables";
@@ -18,7 +18,7 @@ const StyledLogo = styled(Logo)`
 export default function Content(props) {
 	return (
 		<div className="greenwheels">
-			<StyledLogo />
+			<Link to="/"><StyledLogo /></Link>
 			<Route exact path="/" render={props => <CitiesList {...props} />} />
 			<Route
 				exact

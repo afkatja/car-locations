@@ -4,21 +4,9 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { getCities, getLocations, getCars } from "./data/actions";
 
-import styled from "styled-components";
-import { colors } from "./variables";
-
-const StyledList = styled.ul`
-	list-style: none;
-	padding: 0;
-	li {
-		line-height: 1.5;
-		padding: 10px 0;
-		margin: 10px 0;
-		&:not(:last-child) {
-			border-bottom: 1px solid ${colors.mediumGrey};
-		}
-	}
-`;
+import Title from "./title";
+import List from "./list";
+import CustomLink from "./link";
 
 class LocationsList extends Component {
 	componentWillMount() {
@@ -30,17 +18,21 @@ class LocationsList extends Component {
 	}
 
 	render() {
-		const { match, locations } = this.props;
+		const { match, cities, locations } = this.props;
+		const currentCityName = !!cities.length ? cities.filter(({ id }) => id === match.params.city)[0].name : '';
 		return (
 			<Fragment>
-				<StyledList>
+				<Title>Locations in {currentCityName} where Greenwheels cars can be found</Title>
+				<List>
 					{!!locations.length &&
 						locations.map(location => (
 							<li key={location.id}>
-								<Link to={`${location.id}/cars`}>{location.address}</Link>
+								<CustomLink to={`${location.id}/cars`}>
+									{location.address}
+								</CustomLink>
 							</li>
 						))}
-				</StyledList>
+				</List>
 			</Fragment>
 		);
 	}

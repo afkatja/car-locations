@@ -1,24 +1,14 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Link } from "react-router-dom";
-import { getCities, getLocations, getCars } from "./data/actions";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import { getCities, getLocations, getCars } from './data/actions';
 
-import styled from "styled-components";
-import { colors } from "./variables";
+import Title from './title';
+import List from './list';
 
-const StyledList = styled.ul`
-	list-style: none;
-	padding: 0;
-	li {
-		line-height: 1.5;
-		padding: 10px 0;
-		margin: 10px 0;
-		&:not(:last-child) {
-			border-bottom: 1px solid ${colors.mediumGrey};
-		}
-	}
-`;
+import styled from 'styled-components';
+import { colors } from './variables';
 
 const StyledDL = styled.dl`
 	display: flex;
@@ -32,7 +22,8 @@ const StyledDefinitionGroup = styled.div`
 		margin-right: 40px;
 		flex: 1 1 200px;
 	}
-	dt, dd {
+	dt,
+	dd {
 		display: block;
 		margin: 0;
 		padding: 0;
@@ -42,8 +33,8 @@ const StyledDefinitionGroup = styled.div`
 		font-weight: normal;
 	}
 	dd {
-		color: ${props => props.state === 'FREE' ? colors.brandGreen : '#000'};
-		font-weight: ${props => props.state === 'FREE' ? 700 : 400};
+		color: ${props => (props.state === 'FREE' ? colors.brandGreen : '#000')};
+		font-weight: ${props => (props.state === 'FREE' ? 700 : 400)};
 	}
 `;
 
@@ -54,14 +45,24 @@ class CarsList extends Component {
 	}
 	constructor(props) {
 		super(props);
-		this.getCarsPerLocation = (city, location) => this.props.getCars(city, location);
+		this.getCarsPerLocation = (city, location) =>
+			this.props.getCars(city, location);
 	}
 
 	render() {
-		const { cars } = this.props;
+		const { cars, cities, locations, match } = this.props;
+		const currentCityName = !!cities.length
+			? cities.filter(({ id }) => id === match.params.city)[0].name
+			: '';
+		const currentLocationName = !!locations.length
+			? locations.filter(({ id }) => id === match.params.location)[0].address
+			: '';
 		return (
 			<Fragment>
-				<StyledList>
+				<Title>
+					Cars in {currentCityName} on location {currentLocationName}
+				</Title>
+				<List>
 					{!!cars.length &&
 						cars.map(car => (
 							<StyledDL key={car.id}>
@@ -83,7 +84,7 @@ class CarsList extends Component {
 								</StyledDefinitionGroup>
 							</StyledDL>
 						))}
-				</StyledList>
+				</List>
 			</Fragment>
 		);
 	}
@@ -92,14 +93,14 @@ class CarsList extends Component {
 const mapStateToProps = (state, ownProps) => ({
 	cities: state.ui.cities,
 	locations: state.ui.locations,
-	cars: state.ui.cars
+	cars: state.ui.cars,
 });
 const mapDispatchToProps = dispatch =>
 	bindActionCreators(
 		{
 			getCities,
 			getLocations,
-			getCars
+			getCars,
 		},
 		dispatch
 	);

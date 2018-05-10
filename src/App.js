@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { Provider } from "react-redux";
-import store from "./data/store";
-import { Router, Route } from "react-router-dom";
-import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
-import { createBrowserHistory } from "history";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './data/store';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { persistStore } from 'redux-persist';
 
 import Content from './content';
-const history = createBrowserHistory();
 
+const history = createBrowserHistory();
+persistStore(store);
 
 class App extends Component {
 	render() {

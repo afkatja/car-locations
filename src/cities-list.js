@@ -1,25 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router-dom";
 
 import { getCities, getLocations, getCars } from "./data/actions";
-
-import styled from "styled-components";
-import { colors } from "./variables";
-
-const StyledList = styled.ul`
-	list-style: none;
-	padding: 0;
-	li {
-		line-height: 1.5;
-		padding: 10px 0;
-		margin: 10px 0;
-		&:not(:last-child) {
-			border-bottom: 1px solid ${colors.mediumGrey};
-		}
-	}
-`;
+import Title from './title';
+import List from './list';
+import CustomLink from './link';
 
 class CitiesList extends Component {
 	componentWillMount() {
@@ -30,17 +16,18 @@ class CitiesList extends Component {
 		const { cities } = this.props;
 		return (
 			<Fragment>
-				<StyledList>
+				<Title>Cities where Greenwheels cars can be found</Title>
+				<List>
 					{!!cities.length &&
 						cities.map(city => (
 							<li key={city.id}>
-								<Link to={`${city.id}/locations`}>
+								<CustomLink to={`${city.id}/locations`}>
 									{city.name} - {city.geoPoint.longitude} :{" "}
 									{city.geoPoint.latitude}
-								</Link>
+								</CustomLink>
 							</li>
 						))}
-				</StyledList>
+				</List>
 			</Fragment>
 		);
 	}
