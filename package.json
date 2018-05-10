@@ -1,0 +1,26 @@
+{
+  "name": "greenwheels",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-api-middleware": "^2.3.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start prettier-watch",
+    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.1",
+    "styled-components": "^3.2.6"
+  }
+}
