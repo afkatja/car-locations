@@ -24,10 +24,14 @@ const StyledDL = styled.dl`
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-start;
 `;
 
 const StyledDefinitionGroup = styled.div`
+	&:not(:last-child) {
+		margin-right: 40px;
+		flex: 1 1 200px;
+	}
 	dt, dd {
 		display: block;
 		margin: 0;
@@ -36,6 +40,10 @@ const StyledDefinitionGroup = styled.div`
 	dt {
 		color: ${colors.lightGrey};
 		font-weight: normal;
+	}
+	dd {
+		color: ${props => props.state === 'FREE' ? colors.brandGreen : '#000'};
+		font-weight: ${props => props.state === 'FREE' ? 700 : 400};
 	}
 `;
 
@@ -55,7 +63,7 @@ class CarsList extends Component {
 			<Fragment>
 				<StyledList>
 					{!!cars.length &&
-						cars.map(car => console.log(car) || (
+						cars.map(car => (
 							<StyledDL key={car.id}>
 								<StyledDefinitionGroup>
 									<dt>License plate</dt>
@@ -69,7 +77,7 @@ class CarsList extends Component {
 									<dt>Type</dt>
 									<dd>{car.type}</dd>
 								</StyledDefinitionGroup>
-								<StyledDefinitionGroup>
+								<StyledDefinitionGroup state={car.state}>
 									<dt>State</dt>
 									<dd>{car.state}</dd>
 								</StyledDefinitionGroup>
