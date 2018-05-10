@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { getCities, getLocations, getCars } from "./data/actions";
+import { getCities, getLocations, getCars } from './data/actions';
 import Title from './title';
 import List from './list';
 import CustomLink from './link';
@@ -21,10 +21,7 @@ class CitiesList extends Component {
 					{!!cities.length &&
 						cities.map(city => (
 							<li key={city.id}>
-								<CustomLink to={`${city.id}/locations`}>
-									{city.name} - {city.geoPoint.longitude} :{" "}
-									{city.geoPoint.latitude}
-								</CustomLink>
+								<CustomLink to={`${city.id}/locations`}>{city.name}</CustomLink>
 							</li>
 						))}
 				</List>
@@ -36,14 +33,14 @@ class CitiesList extends Component {
 const mapStateToProps = (state, ownProps) => ({
 	cities: state.ui.cities,
 	locations: state.ui.locations,
-	cars: state.ui.cars
+	cars: state.ui.cars,
 });
 const mapDispatchToProps = dispatch =>
 	bindActionCreators(
 		{
 			getCities,
 			getLocations,
-			getCars
+			getCars,
 		},
 		dispatch
 	);
