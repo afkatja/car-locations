@@ -34,8 +34,8 @@ export function getCars(cityId, locationId) {
 		})
 			.then(response => response.json())
 			.then(city => {
-				const cars = city.locations.filter(({ id }) => id === locationId)[0]
-					.cars;
+				const location = city.locations.filter(({ id }) => id === locationId);
+				const cars = !!location ? location[0].cars : [];
 				dispatch({ type: GET_CARS, cars });
 			});
 	};
