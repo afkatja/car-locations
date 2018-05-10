@@ -1,19 +1,32 @@
-import { GET_CITIES } from './actions';
+import { GET_CITIES, GET_LOCATIONS, GET_CARS } from "./actions";
 const initialState = {
-  cities: []
+	cities: [],
+	locations: [],
+	cars: []
 };
 
 export default (state = initialState, action) => {
-  console.log('action is', action);
-  const { type, cities } = action;
-  switch (type) {
-    case GET_CITIES: {
-      return {
-        ...state,
-        cities
-      }
-    }
-    default:
-      return state;
-  }
+	const { type, cities, locations, cars } = action;
+	switch (type) {
+		case GET_CITIES: {
+			return {
+				...state,
+				cities
+			};
+		}
+		case GET_LOCATIONS: {
+			return {
+				...state,
+				locations
+			};
+		}
+		case GET_CARS: {
+			return {
+				...state,
+				cars
+			};
+		}
+		default:
+			return state;
+	}
 };

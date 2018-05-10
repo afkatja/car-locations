@@ -13,14 +13,16 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start prettier-watch",
-    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
+    "start": "react-scripts start && onchange '**/*.js' -- prettier --write {{changed}}",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "history": "^4.7.2",
     "prettier": "^1.12.1",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "styled-components": "^3.2.6"
   }
 }

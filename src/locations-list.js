@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
-
 import { getCities, getLocations, getCars } from "./data/actions";
 
 import styled from "styled-components";
@@ -21,23 +20,24 @@ const StyledList = styled.ul`
 	}
 `;
 
-class CitiesList extends Component {
+class LocationsList extends Component {
 	componentWillMount() {
-		this.props.getCities();
+		this.getLocationsPerCity(this.props.match.params.city);
+	}
+	constructor(props) {
+		super(props);
+		this.getLocationsPerCity = city => this.props.getLocations(city);
 	}
 
 	render() {
-		const { cities } = this.props;
+		const { match, locations } = this.props;
 		return (
 			<Fragment>
 				<StyledList>
-					{!!cities.length &&
-						cities.map(city => (
-							<li key={city.id}>
-								<Link to={`${city.id}/locations`}>
-									{city.name} - {city.geoPoint.longitude} :{" "}
-									{city.geoPoint.latitude}
-								</Link>
+					{!!locations.length &&
+						locations.map(location => (
+							<li key={location.id}>
+								<Link to={`${location.id}/cars`}>{location.address}</Link>
 							</li>
 						))}
 				</StyledList>
@@ -63,4 +63,4 @@ const mapDispatchToProps = dispatch =>
 
 const withState = connect(mapStateToProps, mapDispatchToProps);
 
-export default withState(CitiesList);
+export default withState(LocationsList);

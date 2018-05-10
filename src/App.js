@@ -1,29 +1,24 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import store from './data/store';
-import styled from 'styled-components';
-import { colors } from './variables';
-import Logo from './Logo';
-import CitiesList from './cities-list';
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import store from "./data/store";
+import { Router, Route } from "react-router-dom";
+import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
+import { createBrowserHistory } from "history";
 
+import Content from './content';
+const history = createBrowserHistory();
 
-const StyledLogo = styled(Logo)`
-  fill: ${colors.brandGreen};
-  display: block;
-  margin: 20px 0;
-`;
 
 class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <div className="greenwheels">
-          <StyledLogo />
-          <CitiesList />
-        </div>
-      </Provider>
-    );
-  }
+	render() {
+		return (
+			<Provider store={store}>
+				<Router history={history}>
+					<Content />
+				</Router>
+			</Provider>
+		);
+	}
 }
 
 export default App;
